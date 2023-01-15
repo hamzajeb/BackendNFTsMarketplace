@@ -1,0 +1,38 @@
+server:
+  port: 9191
+
+spring:
+  application:
+    name: GATWAY-API
+  cloud:
+    gateway:
+      routes:
+      - id: PANIERNFT-SERVICE
+        uri: lb://PANIERNFT-SERVICE
+        predicates:
+        - Path=/Panier/**
+      - id: FAVORITENFT-SERVICE 
+        uri: lb://FAVORITENFT-SERVICE 
+        predicates:
+        - Path=/Favorite/** 
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedHeaders: "*"
+            allowedMethods:
+            - GET
+            - POST 
+            - DELETE        
+
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+   
